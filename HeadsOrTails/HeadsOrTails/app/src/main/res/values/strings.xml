@@ -1,0 +1,5 @@
+<resources>
+    <string name="app_name">Coin Toss</string>
+    <string name="_2">Press the Button</string>
+    <string name="BEGIN">Toss</string>
+</resources>
