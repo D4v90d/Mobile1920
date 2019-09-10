@@ -1,0 +1,59 @@
+<resources>
+    <string name="app_name">Lorem Generator</string>
+    <string name="title_text">Lorem Generator</string>
+    <string name="yellow_star">Yellow Star</string>
+    <string name="lorem_text1">
+        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi vitae vestibulum tellus.
+        Curabitur vel consequat lectus, sit amet dignissim neque. Mauris vehicula ornare sapien,
+        inmolestie nisi malesuada non. Duis non risus in arcu rhoncus convallis.
+        Phasellus tincidunt diam at ipsum efficitur pharetra. Nulla cursus fringilla velit,
+        sed euismod sem. Aenean vitae ex id tellus mollis molestie.
+        Aenean maximus elit nec condimentum vulputate. Morbi elementum auctor sem.
+        Duis vitae vulputate turpis.
+    </string>
+
+    <string name="lorem_text2">
+        Six pounders dance the hempen jig grog fathom cutlass loaded to the gunwalls pillage loot long clothes Blimey. Execution dock shrouds long clothes rigging scourge of the seven seas lad overhaul sutler Chain Shot bounty. Hands fire ship cutlass me hearties strike colors red ensign wherry snow bring a spring upon her cable.
+        Tack boom come about crow's nest marooned yardarm gunwalls spike Privateer keelhaul. Main sheet rigging bilge rat Pieces of Eight coffer barque case shot port gabion run a shot across the bow. Tack code of conduct cog squiffy no prey, no pay scourge of the seven seas draught chandler swing the lead scallywag.
+        Bring a spring upon her cable pirate heave to grog Barbary Coast heave down holystone smartly draft poop deck. Walk the plank gun pink topmast hornswaggle poop deck bilge water list dance the hempen jig matey. Grog blossom tackle lookout take a caulk tack tender loot bounty hempen halter furl.
+    </string>
+
+    <string name="lorem_text3">
+        Purr as loud as possible, be the most annoying cat that you can, and, knock everything off the table run outside as soon as door open and push your water glass on the floor,
+        but lick butt and make a weird face. And sometimes switches in french and say "miaou"
+        just because well why not wack the mini furry mouse mewl for food at 4am for meow all night having their mate disturbing sleeping humans.
+        Stare at imaginary bug. Mew cats are a queer kind of folk make plans to dominate world and then take a nap.
+        Licks paws scratch my tummy actually i hate you now fight me and x ignore the human until she needs to get up,
+        then climb on her lap and sprawl bathe private parts with tongue then lick owner's face or always hungry meow to be let out.
+        Play riveting piece on synthesizer keyboard swipe at owner's legs. Eat from dog's food.
+        Really likes hummus dont wait for the storm to pass, dance in the rain, shove bum in owner's face like camera lens so sniff other cat's butt and hang jaw half open thereafter,
+        hiss at vacuum cleaner i'm going to lap some water out of my master's cup meow. Pet my belly,
+        you know you want to; seize the hand and shred it! what a cat-ass-trophy! yet cat gets stuck in tree firefighters try to get cat down firefighters get stuck in tree cat eats firefighters' slippers, or scamper.
+        Inspect anything brought into the house.
+    </string>
+
+    <string name="lorem_text4">
+        Monterey jack boursin goat. Halloumi st. agur blue cheese cauliflower cheese squirty cheese
+        cheesecake chalk and cheese port-salut fromage. Cream cheese taleggio mozzarella emmental manchego
+        smelly cheese airedale chalk and cheese. Cheesy grin cheese and wine smelly cheese fromage frais
+        mozzarella danish fontina bocconcini.
+    </string>
+
+    <string name="lorem_text5">
+        Tart lollipop candy fruitcake sesame snaps powder. Croissant tiramisu biscuit brownie soufflé bear claw soufflé tootsie roll.
+        Powder pudding macaroon. Fruitcake topping pudding gingerbread carrot cake chocolate jelly beans.
+        Croissant chocolate cake chupa chups. Danish carrot cake donut marshmallow bear claw jelly-o.
+        Bear claw croissant apple pie chocolate bar. Sesame snaps lollipop halvah.
+    </string>
+
+    <string name="confirm_button">Confirm</string>
+    <string name="created_fill_placeholder">Created by me</string>
+    <string name="select_item">Select item:</string>
+    <string-array name="dropList">
+        <item>Lorem Ipsum</item>
+        <item>YAR PIRATE IPSUM</item>
+        <item>Cat Ipsum</item>
+        <item>Cheese Ipsum</item>
+        <item>CUPCAKE IPSUM</item>
+    </string-array>
+</resources>
