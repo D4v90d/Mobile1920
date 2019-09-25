@@ -1,0 +1,38 @@
+<!--
+  ~ Copyright 2018, The Android Open Source Project
+  ~
+  ~ Licensed under the Apache License, Version 2.0 (the "License");
+  ~ you may not use this file except in compliance with the License.
+  ~ You may obtain a copy of the License at
+  ~
+  ~     http://www.apache.org/licenses/LICENSE-2.0
+  ~
+  ~ Unless required by applicable law or agreed to in writing, software
+  ~ distributed under the License is distributed on an "AS IS" BASIS,
+  ~ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  ~ See the License for the specific language governing permissions and
+  ~ limitations under the License.
+  -->
+
+<resources>
+    <string name="app_name">Lost in Sea</string>
+    <string name="ending_list">Ending List</string>
+    <string name="try_again">Try Again?</string>
+    <string name="lost_in_sea">Lost in Sea</string>
+    <string name="about_text">Lost in Sea is a game that train players to making a decision.\n\nIn this game, you must be survive in the island.</string>
+    <string name="rules_text">Select the decision from the options given. Each time you choose the decision, you will get the ending that you want.\n\nYou can return to the title screen using up or back from within the game screen, and this will also end your game.</string>
+    <string name="rules">Rules</string>
+    <string name="about">About</string>
+    <string name="select">Select</string>
+    <string name="charity_ending">DONORS</string>
+    <string name="pesky_ending">PESKY TICKET</string>
+    <string name="lucky_ending">YOU ARE LUCKY</string>
+    <string name="worst_ending_one">SUICIDE</string>
+    <string name="worst_ending_two">POISONED</string>
+    <string name="best_ending_one">HOME SWEET HOME</string>
+    <string name="best_ending_two">YOU ARE SAFE</string>
+    <string name="another_ending">YOUR SECOND HOME</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+</resources>

@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<layout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <LinearLayout
+        android:id="@+id/gameEnding"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context=".EndingFragment"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/endingList"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/ending_list"
+            android:textAlignment="center"
+            android:layout_marginTop="@dimen/margin"
+            android:layout_marginBottom="@dimen/margin"/>
+
+        <Button
+            android:id="@+id/charity_ending_button"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/margin"
+            android:layout_marginEnd="@dimen/margin"
+            android:text="@string/charity_ending"
+            android:enabled="false"/>
+
+        <Button
+            android:id="@+id/pesky_ending_button"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/margin"
+            android:layout_marginEnd="@dimen/margin"
+            android:text="@string/pesky_ending"
+            android:enabled="false"/>
+
+        <Button
+            android:id="@+id/lucky_ending_button"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/margin"
+            android:layout_marginEnd="@dimen/margin"
+            android:text="@string/lucky_ending"
+            android:enabled="false"/>
+
+        <Button
+            android:id="@+id/worst_ending_one_button"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/margin"
+            android:layout_marginEnd="@dimen/margin"
+            android:text="@string/worst_ending_one"
+            android:enabled="false"/>
+
+        <Button
+            android:id="@+id/worst_ending_two_button"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/margin"
+            android:layout_marginEnd="@dimen/margin"
+            android:text="@string/worst_ending_two"
+            android:enabled="false"/>
+
+        <Button
+            android:id="@+id/best_ending_one_button"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/margin"
+            android:layout_marginEnd="@dimen/margin"
+            android:text="@string/best_ending_one"
+            android:enabled="false"/>
+
+        <Button
+            android:id="@+id/best_ending_two_button"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/margin"
+            android:layout_marginEnd="@dimen/margin"
+            android:text="@string/best_ending_two"
+            android:enabled="false"/>
+
+        <Button
+            android:id="@+id/another_ending_button"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/margin"
+            android:layout_marginEnd="@dimen/margin"
+            android:text="@string/another_ending"
+            android:enabled="false"/>
+
+    </LinearLayout>
+
+</layout>
