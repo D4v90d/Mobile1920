@@ -27,4 +27,17 @@ class TitleFragment : Fragment() {
         return binding.root     //Return inflate output
     }
 
+    /*
+    override fun onCreateOptionsMenu(menu: Menu?, inflater: MenuInflater?) {
+        super.onCreateOptionsMenu(menu, inflater)
+        inflater?.inflate(R.menu.options_menu, menu)
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem?): Boolean {
+        //!! = Prevents null pointer exception on Kotlin
+        return NavigationUI.onNavDestinationSelected(item!!,
+                view!!.findNavController() || super.onOptionsItemSelected(item))
+    }
+
+     */
 }

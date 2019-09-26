@@ -20,211 +20,269 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.ScrollView
-import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
+import androidx.navigation.findNavController
 import com.example.android.navigation.databinding.FragmentGameBinding
-import com.example.android.navigation.MyApplication.Scene
 
 class GameFragment : Fragment() {
+    data class Question(
+            val text: String,
+            val answers: List<String>)
 
-    private val scenes = MyApplication.scenes
-    lateinit var currentScene: Scene
-    private var selectedActionId: Int = 0
-    private var arthurHealth = 10
+    // The first answer is the correct one.  We randomize the answers before showing the text.
+    // All questions must have four answers.  We'd want these to contain references to string
+    // resources so we could internationalize. (Or better yet, don't define the questions in code...)
+    private val questions: MutableList<Question> = mutableListOf(
+            //0
+            Question(text = "My name is Arthur. I was born on February 29, 19XX. I was born with a uniqueness where I was always lucky. At the age of 24, I won the door prize for a vacation to Hawaii for 7 days. Plus the cost for eating and lodging is covered.",
+                    answers = listOf("Use ticket and go sailing", "Give to other people", "Sell the ticket", "Ignore the ticket")),
+            //1
+            Question(text = "One week later, I sailed to Hawaii. But, on the way to Hawaii. The ship I boarded suddenly sank and cause myself to be stranded on an empty island. I was shocked and had to accept the fact that only myself survived. ",
+                    answers = listOf("Calm down", "Panic", "", "")),
+            //2
+            Question(text = "It's good if this ticket is donated to people who can't afford it.",
+                    answers = listOf("Main menu", "", "", "")),
+            //3
+            Question(text = "Finally the ticket was sold to someone for a decent price. However, the ticket I sold brought disaster to the customers. ",
+                    answers = listOf("Main menu", "", "", "")),
+            //4
+            Question(text = "One week later, there was an accident in which the shipwreck was caused by the ship crashed by chunks of ice. Luckily I did not take the cruise, because I've been there several times. ",
+                    answers = listOf("Main menu", "", "", "")),
+            //5
+            Question(text = "Finally, I can calm myself.",
+                    answers = listOf("Start gather item", "", "", "")),
+            //6
+            Question(text = "I decided to end my life, because it was too much suffering for me to endure alone. ",
+                    answers = listOf("Main menu", "", "", "")),
+            //7
+            Question(text = "I must to survive in this island no matter whatever. First, i must to gather some item.",
+                    answers = listOf("Gather materials", "Gather food", "", "")),
+            //8
+            Question(text = "I decide to gather some materials. ",
+                    answers = listOf("Continue gathering", "Stop gathering", "", "")),
+            //9
+            Question(text = "I decide to gather food around.",
+                    answers = listOf("Collect food", "", "", "")),
+            //10
+            Question(text = "After collecting some food, I get fish, coconut, unique red mushroom. I must to sort the food that are safe to eat. ",
+                    answers = listOf("Eat fish and coconut", "Eat all the food", "", "")),
+            //11
+            Question(text = "I'm to hungry, so I eat all the food and I don't know that one of my food contain deadly poison.",
+                    answers = listOf("Main menu", "", "", "")),
+            //12
+            Question(text = "I decide to gather some materials. ",
+                    answers = listOf("Stop gathering", "", "", "")),
+            //13
+            Question(text = "After the materials completely collected, I build small boat and go away from this island. ",
+                    answers = listOf("Continue", "", "", "")),
+            //14
+            Question(text = "After eat the food, I build house and wait the rescue team. ",
+                    answers = listOf("Wait hopelessly", "Wait hopefully", "", "")),
+            //15
+            Question(text = "The ship finished on time, so I can go to my home.",
+                    answers = listOf("Main menu", "", "", "")),
+            //16
+            Question(text = "Finally the rescue team come to save me, and I can rest after going through this suffer.",
+                    answers = listOf("Main menu", "", "", "")),
+            //17
+            Question(text = "The rescue team never come to save me, and none of the ships passed this island. ",
+                    answers = listOf("Main menu", "", "", ""))
+    )
+
+
+
+    lateinit var currentQuestion: Question
+    lateinit var answers: MutableList<String>
+    private var questionIndex = 0
+    private val numQuestions = Math.min((questions.size + 1) / 2, 3)
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
 
+        // Inflate the layout for this fragment
         val binding = DataBindingUtil.inflate<FragmentGameBinding>(
-            inflater, R.layout.fragment_game, container, false)
+                inflater, R.layout.fragment_game, container, false)
 
-        currentScene = scenes[0]
+        // Shuffles the questions and sets the question index to the first question.
+        randomizeQuestions()
 
-        //binding.scene = this
+        // Bind this fragment class to the layout
+        binding.game = this
 
-        binding.actionButton.setOnClickListener {
+        //Copy for quit game = this.activity!!.onBackPressed()
 
-            if (binding.actions.checkedRadioButtonId != -1) {
+        // Set the onClickListener for the submitButton
+        binding.submitButton.setOnClickListener @Suppress("UNUSED_ANONYMOUS_PARAMETER")
+        { view: View ->
+            val checkedId = binding.questionRadioGroup.checkedRadioButtonId
 
-                when (binding.actions.checkedRadioButtonId) {
-                    binding.actionOne.id -> selectedActionId = 0
-                    binding.actionTwo.id -> selectedActionId = 1
-                    binding.actionThree.id -> selectedActionId = 2
-                    binding.actionFour.id -> selectedActionId = 3
+            // Do nothing if nothing is checked (id == -1)
+            if (-1 != checkedId) {
+                var answerIndex = 0
+                when (checkedId) {
+                    R.id.firstAnswerRadioButton -> answerIndex = 0
+                    R.id.secondAnswerRadioButton -> answerIndex = 1
+                    R.id.thirdAnswerRadioButton -> answerIndex = 2
+                    R.id.fourthAnswerRadioButton -> answerIndex = 3
                 }
-
-                when (currentScene) {
-                    scenes[0] -> currentScene = scenes[1]
-                    scenes[1] -> {
-                        when (selectedActionId) { //Sailing Ticket to Hawaii
-                            0 -> currentScene = scenes[2]
-                            1 -> currentScene = scenes[3]
-                            2 -> currentScene = scenes[4]
-                            3 -> currentScene = scenes[5]
+                when (currentQuestion) {
+                    questions[0] -> when(answerIndex) {
+                        0 -> {
+                            currentQuestion = questions[1]
+                            answers = currentQuestion.answers.toMutableList()
+                        }
+                        1 -> {
+                            currentQuestion = questions[2]
+                            answers = currentQuestion.answers.toMutableList()
+                        }
+                        2 -> {
+                            currentQuestion = questions[3]
+                            answers = currentQuestion.answers.toMutableList()
+                        }
+                        3 -> {
+                            currentQuestion = questions[4]
+                            answers = currentQuestion.answers.toMutableList()
                         }
                     }
-
-                    scenes[2] -> { //shipwreckage
-                        when (selectedActionId) {
-                            0 -> currentScene = scenes[6]
-                            1 -> currentScene = scenes[7]
+                    questions[1] -> when(answerIndex) {
+                        0 -> {
+                            currentQuestion = questions[5]
+                            answers = currentQuestion.answers.toMutableList()
+                        }
+                        1 -> {
+                            currentQuestion = questions[6]
+                            answers = currentQuestion.answers.toMutableList()
                         }
                     }
-
-                    scenes[3] -> { //Donors
-                        MyApplication.charityEnding = true
-                        ending()
+                    questions[2] -> when(answerIndex){
+                        0 -> this.activity!!.onBackPressed()
                     }
-
-                    scenes[4] -> { //Pesky Ticket
-                        MyApplication.peskyEnding = true
-                        ending()
+                    questions[3] -> when(answerIndex){
+                        0 -> this.activity!!.onBackPressed()
                     }
-
-                    scenes[5] -> { //You are lucky
-                        MyApplication.luckyEnding = true
-                        ending()
+                    questions[4] -> when(answerIndex){
+                        0 -> this.activity!!.onBackPressed()
                     }
-
-                    scenes[6] -> { //Calm down self
-                        when (selectedActionId) {
-                            0 -> currentScene = scenes[8]
+                    questions[5] -> when(answerIndex){
+                        0 -> {
+                            currentQuestion = questions[7]
+                            answers = currentQuestion.answers.toMutableList()
                         }
                     }
-
-                    scenes[7] -> { //Suicide
-                        MyApplication.worstEnding1 = true
-                        ending()
+                    questions[6] -> when(answerIndex){
+                        0 -> this.activity!!.onBackPressed()
                     }
-
-                    scenes[8] -> { //Gathering items
-                        when (selectedActionId) {
-                            0 -> {
-                                currentScene = scenes[9]
-                                arthurHealth--
-                            }
-                            1 -> {
-                                currentScene = scenes[10]
-                                arthurHealth--
-                            }
+                    questions[7] -> when(answerIndex){
+                        0 -> {
+                            currentQuestion = questions[8]
+                            answers = currentQuestion.answers.toMutableList()
+                        }
+                        1 -> {
+                            currentQuestion = questions[9]
+                            answers = currentQuestion.answers.toMutableList()
                         }
                     }
-
-                    scenes[9] -> { //Gathering material
-                        when (selectedActionId) {
-                            0 -> {
-                                currentScene = scenes[12]
-                                arthurHealth--
-                            }
+                    questions[8] -> when(answerIndex){
+                        0 -> {
+                            currentQuestion = questions[12]
+                            answers = currentQuestion.answers.toMutableList()
                         }
                     }
-
-                    scenes[10] -> { //Gathering food
-                        when (selectedActionId) {
-                            0 -> {
-                                currentScene = scenes[11]
-                                arthurHealth--
-                            }
+                    questions[9] -> when(answerIndex){
+                        0 -> {
+                            currentQuestion = questions[10]
+                            answers = currentQuestion.answers.toMutableList()
+                        }
+                        1 -> {
+                            currentQuestion = questions[11]
+                            answers = currentQuestion.answers.toMutableList()
                         }
                     }
-
-                    scenes[11] -> { //Eat food
-                        when (selectedActionId) {
-                            0 -> {
-                                currentScene = scenes[12]
-                                arthurHealth += 3
-                            }
-                            1 -> currentScene = scenes[13]
+                    questions[10] -> when(answerIndex){
+                        0 -> {
+                            currentQuestion = questions[14]
+                            answers = currentQuestion.answers.toMutableList()
                         }
                     }
-
-                    scenes[12] -> { //Continue Gather item
-                        when (selectedActionId) {
-                            0 -> {
-                                currentScene = scenes[14]
-                                arthurHealth--
-                            }
-                            1 -> {
-                                currentScene = scenes[15]
-                                arthurHealth--
-                            }
+                    questions[11] -> when(answerIndex){
+                        0 -> this.activity!!.onBackPressed()
+                    }
+                    questions[12] -> when(answerIndex){
+                        0 -> {
+                            currentQuestion = questions[13]
+                            answers = currentQuestion.answers.toMutableList()
                         }
                     }
-
-                    scenes[13] -> { //poisoned
-                        MyApplication.worstEnding2 = true
-                        ending()
-                    }
-
-                    scenes[14] -> { //Gather material
-                        when (selectedActionId) {
-                            0 -> {
-                                currentScene = scenes[16]
-                                arthurHealth--
-                            }
+                    questions[13] -> when(answerIndex){
+                        0 -> {
+                            currentQuestion = questions[15]
+                            answers = currentQuestion.answers.toMutableList()
                         }
                     }
-
-                    scenes[15] -> {//Eat food
-                        when (selectedActionId) {
-                            0 -> {
-                                currentScene = scenes[17]
-                                arthurHealth += 3
-                            }
-                            1 -> currentScene = scenes[13]
+                    questions[14] -> when(answerIndex){
+                        0 -> {
+                            currentQuestion = questions[16]
+                            answers = currentQuestion.answers.toMutableList()
+                        }
+                        1 -> {
+                            currentQuestion = questions[17]
+                            answers = currentQuestion.answers.toMutableList()
                         }
                     }
-
-                    scenes[16] -> currentScene = scenes[18] //Build boat
-
-                    scenes[17] -> { //Wait rescue team
-                        when (selectedActionId) {
-                            0 -> currentScene = scenes[19]
-                            1 -> currentScene = scenes[20]
-                        }
+                    questions[15] -> when(answerIndex){
+                        0 -> this.activity!!.onBackPressed()
                     }
-
-                    scenes[18] -> { // Go home
-                        MyApplication.bestEnding1 = true
-                        ending()
+                    questions[16] -> when(answerIndex){
+                        0 -> this.activity!!.onBackPressed()
                     }
-
-                    scenes[19] -> { //You are Safe
-                        MyApplication.bestEnding2 = true
-                        ending()
+                    questions[17] -> when(answerIndex){
+                        0 -> this.activity!!.onBackPressed()
                     }
-
-                    scenes[20] -> {
-                        MyApplication.anotherEnding = true
-                        ending()
-                    }
-
                 }
-
-                if (currentScene.actions[0] == "") binding.actionOne.isEnabled = false else binding.actionOne.isEnabled = true
-                if (currentScene.actions[1] == "") binding.actionTwo.isEnabled = false else binding.actionTwo.isEnabled = true
-                if (currentScene.actions[2] == "") binding.actionThree.isEnabled = false else binding.actionThree.isEnabled = true
-                if (currentScene.actions[3] == "") binding.actionFour.isEnabled = false else binding.actionFour.isEnabled = true
-
-                binding.actions.clearCheck()
-                binding.scrollView.fullScroll(ScrollView.FOCUS_UP)
                 binding.invalidateAll()
-            } else{
-                Toast.makeText(this.activity, "Select one optional of the actions to continue!", Toast.LENGTH_SHORT).show()
+                // The first answer in the original question is always the correct one, so if our
+                // answer matches, we have the correct answer.
+                /*
+                if (answers[answerIndex] == currentQuestion.answers[0]) {
+                    questionIndex++
+                    // Advance to the next question
+                    if (questionIndex < numQuestions) {
+                        currentQuestion = questions[questionIndex]
+                        setQuestion()
+                        binding.invalidateAll()
+                    } else {
+                        // We've won!  Navigate to the gameWonFragment.
+                        view.findNavController().navigate(R.id.action_gameFragment_to_gameWonFragment3)
+                    }
+                } else {
+                    // Game over! A wrong answer sends us to the gameOverFragment.
+                    view.findNavController().navigate(R.id.action_gameFragment_to_gameOverFragment)
+                }
+
+                 */
             }
         }
-
         return binding.root
+    }
 
-        }
-        private fun ending(){
-            arthurHealth = 10
-            when(selectedActionId){
-                0 -> this.activity!!.onBackPressed()
-                1 -> currentScene = scenes[0]
-            }
-        }
+    // randomize the questions and set the first question
+    private fun randomizeQuestions() {
+        //questions.shuffle()
+        questionIndex = 0
+        setQuestion()
+    }
+
+    private fun startGame() {
+        currentQuestion = questions[0]
+    }
+
+    // Sets the question and randomizes the answers.  This only changes the data, not the UI.
+    // Calling invalidateAll on the FragmentGameBinding updates the data.
+    private fun setQuestion() {
+        currentQuestion = questions[questionIndex]
+        // randomize the answers into a copy of the array
+        answers = currentQuestion.answers.toMutableList()
+    }
 }
-

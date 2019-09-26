@@ -22,7 +22,7 @@
         android:id="@+id/share"
         android:enabled="true"
         android:icon="@drawable/share"
-        android:title="@string/app_name"
+        android:title="@string/share"
         android:visible="true"
         app:showAsAction="ifRoom" />
 </menu>
