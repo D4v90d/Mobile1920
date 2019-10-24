@@ -1,6 +1,7 @@
 package com.example.android.navigation
 
 import android.app.Application
+import timber.log.Timber
 
 class Story: Application() {
     data class Question(
@@ -34,5 +35,23 @@ class Story: Application() {
             Question(text = "What do you use to mark a layout for data binding?",
                     answers = listOf("<layout>", "<binding>", "<data-binding>", "<dbinding>"))
     )
+    var LOG_PREFIX = "[TIMBER LOGGING] : "
+
+    var ON_CREATE_CALLED = LOG_PREFIX + "onCreate() Called!"
+    var ON_START_CALLED = LOG_PREFIX + "onStart() Called!"
+    var ON_RESUME_CALLED = LOG_PREFIX + "onResume() Called!"
+    var ON_PAUSE_CALLED = LOG_PREFIX + "onPause() Called!"
+    var ON_STOP_CALLED = LOG_PREFIX + "onStop() Called!"
+    var ON_DESTROY_CALLED = LOG_PREFIX + "onDestroy() Called!"
+    var ON_RESTART_CALLED = LOG_PREFIX + "onRestart() Called!"
+    var ON_ATTACH_CALLED = LOG_PREFIX + "onAttach() Called!"
+    var ON_DETACH_CALLED = LOG_PREFIX + "onDetach() Called!"
+    var ON_CREATE_VIEW__CALLED = LOG_PREFIX + "onCreateView() Called!"
+    var ON_DESTROY_VIEW__CALLED = LOG_PREFIX + "onDestroyView() Called!"
+}
+
+    override fun onCreate() {
+        super.onCreate()
+        Timber.plant(Timber.DebugTree())
 
 }
